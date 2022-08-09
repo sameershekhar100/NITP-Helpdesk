@@ -1,5 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Sample</string>
     <string name="select_your_name">Select Your Name</string>
     <string name="welcome">Welcome</string>
     <string name="select_your_department">Select Your Department</string>
