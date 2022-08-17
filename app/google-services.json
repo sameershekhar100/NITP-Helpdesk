@@ -1,0 +1,68 @@
+{
+  "project_info": {
+    "project_number": "140543604216",
+    "project_id": "nitp-helpdesk",
+    "storage_bucket": "nitp-helpdesk.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:140543604216:android:91c17d6237ad94885cd20d",
+        "android_client_info": {
+          "package_name": "com.example.nitphelpdesk"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "140543604216-hu5trq97bd1c13qihh4dos3qi0rcnjd7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBjVN4E9M2_yscwyY9YD52iDSa3q6Gv0ak"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "140543604216-hu5trq97bd1c13qihh4dos3qi0rcnjd7.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:140543604216:android:42aca6d93b96d5b05cd20d",
+        "android_client_info": {
+          "package_name": "com.example.sample"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "140543604216-hu5trq97bd1c13qihh4dos3qi0rcnjd7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBjVN4E9M2_yscwyY9YD52iDSa3q6Gv0ak"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "140543604216-hu5trq97bd1c13qihh4dos3qi0rcnjd7.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
