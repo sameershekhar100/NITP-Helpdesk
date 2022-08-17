@@ -20,40 +20,33 @@
         android:textAlignment="center"
         android:layout_marginTop="24dp"/>
 
-    <com.skydoves.powerspinner.PowerSpinnerView
+    <Spinner
         android:id="@+id/department"
         android:layout_width="match_parent"
         android:layout_height="48dp"
         android:layout_marginHorizontal="32dp"
         android:layout_marginTop="32dp"
-        android:background="#C22B40"
+        android:background="#F2D5D9"
         android:gravity="center"
-        android:hint="@string/select_your_department"
-        android:padding="10dp"
-        android:textStyle="bold"
-        android:textColor="#fff"
-        android:textColorHint="#F5F2F2"
-        android:textSize="16sp"
-        app:spinner_arrow_gravity="end"
-        app:spinner_arrow_padding="8dp"
-        app:spinner_divider_show="true"
-        app:spinner_divider_size="0.4dp"
-        app:spinner_item_height="46dp"
-        app:spinner_popup_animation="dropdown"
-        app:spinner_popup_elevation="14dp" />
 
-    <com.skydoves.powerspinner.PowerSpinnerView
+        android:textStyle="bold"
+        android:textColor="#000"
+        android:textColorHint="@android:color/darker_gray"
+        android:textSize="16sp"
+        />
+
+    <Spinner
         android:id="@+id/name"
         android:layout_width="match_parent"
         android:layout_height="48dp"
         android:layout_marginHorizontal="32dp"
         android:layout_marginTop="32dp"
-        android:background="#C22B40"
+        android:background="#F2D5D9"
         android:gravity="center"
         android:hint="@string/select_your_name"
         android:padding="10dp"
         android:textStyle="bold"
-        android:textColor="#fff"
+        android:textColor="#000"
         android:textColorHint="#F5F2F2"
         android:textSize="16sp"/>
     <androidx.constraintlayout.utils.widget.MotionButton
