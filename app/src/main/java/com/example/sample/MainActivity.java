@@ -11,6 +11,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -26,6 +27,7 @@ import java.util.ArrayList;
 public class MainActivity extends AppCompatActivity {
     EditText e1;
     Button getOTP,Submit;
+    ProgressBar p;
     Spinner dept,name;
     LinearLayout layout;
     ArrayList<String> dept_array=new ArrayList<>();
@@ -43,7 +45,13 @@ public class MainActivity extends AppCompatActivity {
         findDept();
 
         //verify and intent
-        verification();
+        getOTP.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                verification();
+            }
+        });
+
     }
 
     //set Viewhandlers
@@ -54,6 +62,7 @@ public class MainActivity extends AppCompatActivity {
         dept=findViewById(R.id.department);
         name=findViewById(R.id.name);
         layout=findViewById(R.id.checklayout);
+        p=findViewById(R.id.progress);
     }
 
     //find the dept
@@ -87,7 +96,7 @@ public class MainActivity extends AppCompatActivity {
             }
 
         });
-        //TODO Fix bugs and verify
+
 
     }
 
@@ -103,7 +112,9 @@ public class MainActivity extends AppCompatActivity {
             Toast.makeText(this, "Select your Department", Toast.LENGTH_SHORT).show();
             return;
         }
+
         ref=db.collection("Department").document(currDept);
+        p.setVisibility(View.VISIBLE);
         ref.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
@@ -115,6 +126,7 @@ public class MainActivity extends AppCompatActivity {
                         setNameSpinner();
                         //   Log.d("TAG", "DocumentSnapshot data: " + name_array.size());
                     }
+                    p.setVisibility(View.GONE);
                 }
 
 
@@ -142,10 +154,18 @@ public class MainActivity extends AppCompatActivity {
             }
 
         });
-
-
     }
 
     private void verification() {
+        if(currDept.isEmpty() || currDept.equals("None")) {
+            Toast.makeText(this, "Select your department", Toast.LENGTH_SHORT).show();
+
+        }
+        else if(currName==null || currName.equals("None")){
+            Toast.makeText(this, "Select your name", Toast.LENGTH_SHORT).show();
+        }
+        // TODO Verify...
+        else Toast.makeText(this, "dept:"+currDept+" name:"+currName, Toast.LENGTH_SHORT).show();
+
     }
 }
