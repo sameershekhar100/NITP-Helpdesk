@@ -17,9 +17,14 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.ActionCodeSettings;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.skydoves.powerspinner.PowerSpinnerView;
 
 import java.util.ArrayList;
@@ -32,9 +37,9 @@ public class MainActivity extends AppCompatActivity {
     LinearLayout layout;
     ArrayList<String> dept_array=new ArrayList<>();
     ArrayList<String> name_array=new ArrayList<>();
-    String currDept,currName;
+    String currDept,currName,email;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
-    DocumentReference ref;
+    CollectionReference ref;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -113,27 +118,25 @@ public class MainActivity extends AppCompatActivity {
             return;
         }
 
-        ref=db.collection("Department").document(currDept);
+        ref=db.collection("Department").document(currDept).collection("names");
         p.setVisibility(View.VISIBLE);
-        ref.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+        ref.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
-            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                if(task.isSuccessful()){
-                    DocumentSnapshot document = task.getResult();
-
-                    if (document.exists()) {
-                        name_array = (ArrayList<String>) document.get("name");
-                        setNameSpinner();
-                        //   Log.d("TAG", "DocumentSnapshot data: " + name_array.size());
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if (task.isSuccessful()) {
+                    Log.v("Taggg",task.getResult().size()+"");
+                    name_array.clear();
+                    for (QueryDocumentSnapshot document : task.getResult()) {
+                        String name= document.getString("name");
+                        name_array.add(name);
                     }
+                    Toast.makeText(MainActivity.this, ""+name_array.size(), Toast.LENGTH_SHORT).show();
+                    setNameSpinner();
                     p.setVisibility(View.GONE);
                 }
-
-
             }
         });
         // Log.v("Tag....",name_array.size()+"");
-
     }
 
     private void setNameSpinner(){
@@ -165,7 +168,47 @@ public class MainActivity extends AppCompatActivity {
             Toast.makeText(this, "Select your name", Toast.LENGTH_SHORT).show();
         }
         // TODO Verify...
-        else Toast.makeText(this, "dept:"+currDept+" name:"+currName, Toast.LENGTH_SHORT).show();
+        getEmail();
+        FirebaseAuth auth = FirebaseAuth.getInstance();
 
+
+
+        ActionCodeSettings actionCodeSettings =
+                ActionCodeSettings.newBuilder()
+                        // URL you want to redirect back to. The domain (www.example.com) for this
+                        // URL must be whitelisted in the Firebase Console.
+                        // This must be true
+                        .setHandleCodeInApp(true)
+                        .setAndroidPackageName(
+                                "com.example.sample",
+                                true, /* installIfNotAvailable */
+                                "23"    /* minimumVersion */)
+                        .build();
+        auth.sendSignInLinkToEmail(email,actionCodeSettings)
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if (task.isSuccessful()) {
+                            Log.d("TAG", "Email sent.");
+                        }
+                    }
+                });
+       Toast.makeText(this, "dept:"+currDept+" name:"+currName+" email:"+ email+"", Toast.LENGTH_SHORT).show();
+
+    }
+
+    void getEmail(){
+        ref.document("arch1").get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if(task.isSuccessful()) {
+                    DocumentSnapshot document = task.getResult();
+                    if (document.exists()) {
+                        email = document.getString("email");
+
+                    }
+                }
+            }
+        });
     }
 }
