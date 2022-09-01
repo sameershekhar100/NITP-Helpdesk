@@ -199,36 +199,36 @@ public class MainActivity extends AppCompatActivity {
 //    }
     void signIn(){
 
-//        auth.signInWithEmailAndPassword(email, "abc123").addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-//            @Override
-//            public void onComplete(@NonNull Task<AuthResult> task) {
-//                if (task.isSuccessful()) {
-//                    FirebaseUser user=auth.getCurrentUser();
-//                    startActivity(new Intent(getApplicationContext(),ComplaintActivity.class));
-//                    finish();
-//                }
-//            }
-//        });
-        ActionCodeSettings actionCodeSettings =
-                ActionCodeSettings.newBuilder()
-                        // URL you want to redirect back to. The domain (www.example.com) for this
-                        // URL must be whitelisted in the Firebase Console.
-                        .setUrl("https://www.example.com/finishSignUp?cartId=1234")
-                        // This must be true
-                        .setHandleCodeInApp(true)
-                        .setAndroidPackageName(
-                                "com.example.sample",
-                                false, /* installIfNotAvailable */
-                                null   /* minimumVersion */)
-                        .build();
-        auth.sendSignInLinkToEmail(email, actionCodeSettings)
-                .addOnCompleteListener(new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        if (task.isSuccessful()) {
-                            Log.d("TAG", "Email sent.");
-                        }
-                    }
-                });
+        auth.signInWithEmailAndPassword(email, "abc123").addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+            @Override
+            public void onComplete(@NonNull Task<AuthResult> task) {
+                if (task.isSuccessful()) {
+                    FirebaseUser user=auth.getCurrentUser();
+                    startActivity(new Intent(getApplicationContext(),ComplaintActivity.class));
+                    finish();
+                }
+            }
+        });
+//        ActionCodeSettings actionCodeSettings =
+//                ActionCodeSettings.newBuilder()
+//                        // URL you want to redirect back to. The domain (www.example.com) for this
+//                        // URL must be whitelisted in the Firebase Console.
+//                        .setUrl("https://www.example.com/finishSignUp?cartId=1234")
+//                        // This must be true
+//                        .setHandleCodeInApp(true)
+//                        .setAndroidPackageName(
+//                                "com.example.sample",
+//                                false, /* installIfNotAvailable */
+//                                null   /* minimumVersion */)
+//                        .build();
+//        auth.sendSignInLinkToEmail(email, actionCodeSettings)
+//                .addOnCompleteListener(new OnCompleteListener<Void>() {
+//                    @Override
+//                    public void onComplete(@NonNull Task<Void> task) {
+//                        if (task.isSuccessful()) {
+//                            Log.d("TAG", "Email sent.");
+//                        }
+//                    }
+//                });
     }
 }
