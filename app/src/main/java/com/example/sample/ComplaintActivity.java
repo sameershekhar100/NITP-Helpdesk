@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.Timestamp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
@@ -30,7 +31,7 @@ public class ComplaintActivity extends AppCompatActivity {
     ImageButton imageButton;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     CollectionReference complaintRef = db.collection("Complaint");
-
+    FloatingActionButton newComplaint;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,6 +46,13 @@ public class ComplaintActivity extends AppCompatActivity {
                 FirebaseAuth.getInstance().signOut();
                 startActivity(new Intent(getApplicationContext(), MainActivity.class));
                 finish();
+            }
+        });
+        newComplaint=findViewById(R.id.newComplaint);
+        newComplaint.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(ComplaintActivity.this, "complaint added", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -81,8 +89,5 @@ public class ComplaintActivity extends AppCompatActivity {
                 }
             }
         });
-
-
-
     }
 }

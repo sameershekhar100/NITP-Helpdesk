@@ -16,15 +16,15 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageButton
+        android:id="@+id/logout"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:id="@+id/logout"
-        android:src="@drawable/ic_baseline_logout_24"
+        android:layout_marginEnd="15dp"
         android:background="@color/purple_500"
-        app:layout_constraintTop_toTopOf="@+id/toolbar"
+        android:src="@drawable/ic_baseline_logout_24"
         app:layout_constraintBottom_toBottomOf="@id/toolbar"
         app:layout_constraintRight_toRightOf="@id/toolbar"
-        android:layout_marginEnd="15dp"/>
+        app:layout_constraintTop_toTopOf="@+id/toolbar" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/complain_list"
@@ -36,6 +36,18 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/toolbar"
         app:layout_constraintVertical_bias="0.051"
-        tools:listitem="@layout/complain_item"/>
+        tools:listitem="@layout/complain_item" />
 
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/newComplaint"
+        android:src="@drawable/ic_baseline_add_24"
+        app:maxImageSize="42dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.918"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.924" />
 </androidx.constraintlayout.widget.ConstraintLayout>
