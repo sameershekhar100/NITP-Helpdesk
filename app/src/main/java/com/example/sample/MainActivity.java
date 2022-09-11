@@ -190,13 +190,14 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
-//    public void onStart() {
-//        super.onStart();
-//        FirebaseUser currentUser = auth.getCurrentUser();
-//        if(currentUser != null){
-//            startActivity(new Intent(getApplicationContext(),ComplaintActivity.class));
-//        }
-//    }
+    public void onStart() {
+        super.onStart();
+        FirebaseUser currentUser = auth.getCurrentUser();
+        if(currentUser != null){
+            startActivity(new Intent(getApplicationContext(),ComplaintActivity.class));
+            finish();
+        }
+    }
     void signIn(){
 
         auth.signInWithEmailAndPassword(email, "abc123").addOnCompleteListener(new OnCompleteListener<AuthResult>() {

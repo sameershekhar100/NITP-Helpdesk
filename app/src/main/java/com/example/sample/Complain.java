@@ -1,17 +1,39 @@
 package com.example.sample;
 
 public class Complain {
-    String location,description,number;
-    int status;
-    String category;
+
+
+     String name,location,description, category,timeStamp;;
+     long status,number;
+
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getTimeStamp() {
+        return timeStamp;
+    }
+
+    public void setTimeStamp(String timeStamp) {
+        this.timeStamp = timeStamp;
+    }
+
+
 
     //constructor
-    public Complain(String location, String description, String number, int status, String category) {
+    public Complain(String name,String location, String description, long number, long status, String category,String timeStamp) {
         this.location = location;
+        this.name=name;
         this.description = description;
         this.number = number;
         this.status = status;
         this.category = category;
+        this.timeStamp=timeStamp;
     }
 
     //getters and setters
@@ -31,19 +53,19 @@ public class Complain {
         this.description = description;
     }
 
-    public String getNumber() {
+    public long getNumber() {
         return number;
     }
 
-    public void setNumber(String number) {
+    public void setNumber(long number) {
         this.number = number;
     }
 
-    public int getStatus() {
+    public long getStatus() {
         return status;
     }
 
-    public void setStatus(int status) {
+    public void setStatus(long status) {
         this.status = status;
     }
 

@@ -3,6 +3,7 @@ package com.example.sample;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextClock;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -13,8 +14,8 @@ import org.w3c.dom.Text;
 import java.util.ArrayList;
 
 public class ComplainAdaptar extends RecyclerView.Adapter<ComplainAdaptar.ComplaintHolder>  {
-    ArrayList<String> complaint;
-    public ComplainAdaptar(ArrayList<String> complaint){
+    ArrayList<Complain> complaint;
+    public ComplainAdaptar(ArrayList<Complain> complaint){
         this.complaint=complaint;
     }
     @NonNull
@@ -26,8 +27,12 @@ public class ComplainAdaptar extends RecyclerView.Adapter<ComplainAdaptar.Compla
 
     @Override
     public void onBindViewHolder(@NonNull ComplaintHolder holder, int position) {
-        String s=complaint.get(position);
-        holder.textView.setText(s);
+
+        Complain complain=complaint.get(position);
+        holder.name.setText(complain.getName());
+        holder.category.setText(complain.getCategory());
+        holder.description.setText(complain.getDescription());
+        holder.timeStamp.setText(TimeUtils.getTime(System.currentTimeMillis()));
     }
     @Override
     public int getItemCount() {
@@ -35,10 +40,14 @@ public class ComplainAdaptar extends RecyclerView.Adapter<ComplainAdaptar.Compla
     }
 
     public class ComplaintHolder extends RecyclerView.ViewHolder{
-        TextView textView;
+        TextView name,category,description;
+        TextView timeStamp;
         public ComplaintHolder(@NonNull View itemView) {
             super(itemView);
-            textView=itemView.findViewById(R.id.title);
+            name=itemView.findViewById(R.id.title);
+            category=itemView.findViewById(R.id.category);
+            description=itemView.findViewById(R.id.description);
+            timeStamp=itemView.findViewById(R.id.time);
         }
     }
 }

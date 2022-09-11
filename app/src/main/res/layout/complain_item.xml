@@ -1,12 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content">
-<TextView
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:text="sample"
-    android:textSize="30sp"
-    android:id="@+id/title"
-    android:textColor="#000"/>
-</LinearLayout>
+    android:padding="12dp">
+
+    <TextView
+        android:id="@+id/title"
+        android:text="Ambarish Mishra"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/inder"
+        android:textColor="#000"
+        android:textSize="36sp"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="8dp"
+        android:text="tiem"
+        android:id="@+id/time"/>
+
+    <TextView
+        android:id="@+id/category"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="38dp"
+        android:fontFamily="@font/inder"
+        android:text="Departmant"
+        android:textColor="#000"
+        android:textSize="24sp" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/description"
+        android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud ..."
+        android:singleLine="true"
+        android:layout_marginTop="68dp"
+        android:textColor="@color/black"
+        android:fontFamily="@font/inder"
+        android:paddingEnd="22dp"/>
+
+</RelativeLayout>
