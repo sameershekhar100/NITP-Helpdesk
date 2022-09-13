@@ -205,7 +205,10 @@ public class MainActivity extends AppCompatActivity {
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()) {
                     FirebaseUser user=auth.getCurrentUser();
-                    startActivity(new Intent(getApplicationContext(),ComplaintActivity.class));
+                    Intent intent=new Intent(getApplicationContext(),ComplaintActivity.class);
+                    intent.putExtra("Department",currDept);
+                    intent.putExtra("name",currName);
+                    startActivity(intent);
                     finish();
                 }
             }

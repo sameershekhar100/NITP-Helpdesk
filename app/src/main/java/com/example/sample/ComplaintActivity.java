@@ -37,6 +37,9 @@ public class ComplaintActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_complaint);
         getSupportActionBar().hide();
+        Intent intent=getIntent();
+        String currDept=intent.getStringExtra("Department");
+        String currName=intent.getStringExtra("name");
 
         imageButton = findViewById(R.id.logout);
         imageButton.setOnClickListener(new View.OnClickListener() {
@@ -52,7 +55,11 @@ public class ComplaintActivity extends AppCompatActivity {
         newComplaint.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(ComplaintActivity.this, "complaint added", Toast.LENGTH_SHORT).show();
+                Intent i1=new Intent(getApplicationContext(),NewComplaint.class);
+                i1.putExtra("Department",currDept);
+                i1.putExtra("name",currName);
+                startActivity(i1);
+               // Toast.makeText(ComplaintActivity.this, "complaint added", Toast.LENGTH_SHORT).show();
             }
         });
 
