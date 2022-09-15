@@ -25,6 +25,7 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
@@ -112,15 +113,20 @@ public class MainActivity extends AppCompatActivity {
 
     //find name
     private void findName() {
-        if (name_array.size() > 1) {
-
-            name_array.clear();
-            name_array.add("None");
-        }
         if (currDept.equals("None")) {
+            name_array.clear();
+            name.setAdapter(null);
+            currDept="";currName="";
             Toast.makeText(this, "Select your Department", Toast.LENGTH_SHORT).show();
             return;
         }
+        if (name_array.size() > 1) {
+
+            name_array.clear();
+
+        }
+
+//        Log.v("Taggg", name_array.size()+ "");
 
         ref = db.collection("Department").document(currDept).collection("names");
         p.setVisibility(View.VISIBLE);
@@ -128,12 +134,13 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 if (task.isSuccessful()) {
-                    Log.v("Taggg", task.getResult().size() + "");
                     name_array.clear();
+                    name_array.add("None");
                     for (QueryDocumentSnapshot document : task.getResult()) {
-                        String name = document.getString("name");
+                        String name = document.getId().toString();
                         name_array.add(name);
                     }
+                    Log.v("Taggg", name_array.get(0)+ "");
                     Toast.makeText(MainActivity.this, "" + name_array.size(), Toast.LENGTH_SHORT).show();
                     setNameSpinner();
                     p.setVisibility(View.GONE);
@@ -166,9 +173,10 @@ public class MainActivity extends AppCompatActivity {
     private void verification() {
         if (currDept.isEmpty() || currDept.equals("None")) {
             Toast.makeText(this, "Select your department", Toast.LENGTH_SHORT).show();
-
+            return;
         } else if (currName == null || currName.equals("None")) {
             Toast.makeText(this, "Select your name", Toast.LENGTH_SHORT).show();
+            return;
         }
         // TODO Verify...
 
@@ -178,7 +186,7 @@ public class MainActivity extends AppCompatActivity {
 
     void getEmail() {
       //  Toast.makeText(this, "dept:" + currDept + " name:" + currName , Toast.LENGTH_SHORT).show();
-        ref.document("arch1").get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+        ref.document(currName).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
             public void onSuccess(DocumentSnapshot documentSnapshot) {
                 if(documentSnapshot.exists()){
@@ -194,8 +202,25 @@ public class MainActivity extends AppCompatActivity {
         super.onStart();
         FirebaseUser currentUser = auth.getCurrentUser();
         if(currentUser != null){
-            startActivity(new Intent(getApplicationContext(),ComplaintActivity.class));
-            finish();
+            DocumentReference reff=db.collection("Accounts").document(currentUser.getUid());
+           reff.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+               @Override
+               public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                   if(task.isSuccessful()) {
+                       currDept = task.getResult().getString("department");
+                       currName = task.getResult().getString("name");
+                       Log.v("msg",task.getResult().getId()+"");
+                       Intent intent = new Intent(getApplicationContext(), ComplaintActivity.class);
+                       intent.putExtra("Department", currDept);
+                       intent.putExtra("name", currName);
+                       startActivity(intent);
+                       finish();
+                   }
+                   else Toast.makeText(MainActivity.this, "An error occured", Toast.LENGTH_SHORT).show();
+               }
+           });
+//            startActivity(new Intent(getApplicationContext(),ComplaintActivity.class));
+//            finish();
         }
     }
     void signIn(){
@@ -204,7 +229,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()) {
-                    FirebaseUser user=auth.getCurrentUser();
+                //    FirebaseUser user=auth.getCurrentUser();
                     Intent intent=new Intent(getApplicationContext(),ComplaintActivity.class);
                     intent.putExtra("Department",currDept);
                     intent.putExtra("name",currName);
