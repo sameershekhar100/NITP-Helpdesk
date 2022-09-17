@@ -12,6 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -31,6 +32,7 @@ public class ComplaintActivity extends AppCompatActivity {
     RecyclerView.LayoutManager layoutManager;
     ImageButton imageButton;
     TextView textView;
+    SwipeRefreshLayout refreshLayout;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     CollectionReference complaintRef = db.collection("Complaint");
     FloatingActionButton newComplaint;
@@ -68,7 +70,16 @@ public class ComplaintActivity extends AppCompatActivity {
         });
 
         setComplaintView();
+        refreshLayout=findViewById(R.id.refresh);
+        refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                setComplaintView();
+                refreshLayout.setRefreshing(false);
+                Toast.makeText(ComplaintActivity.this, "refreshed", Toast.LENGTH_SHORT).show();
 
+            }
+        });
     }
 
     void setComplaintView() {
