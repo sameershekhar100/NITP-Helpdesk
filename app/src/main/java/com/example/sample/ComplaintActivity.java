@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -29,6 +30,7 @@ public class ComplaintActivity extends AppCompatActivity {
     RecyclerView recyclerView;
     RecyclerView.LayoutManager layoutManager;
     ImageButton imageButton;
+    TextView textView;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     CollectionReference complaintRef = db.collection("Complaint");
     FloatingActionButton newComplaint;
@@ -83,18 +85,24 @@ public class ComplaintActivity extends AppCompatActivity {
                     complaint.clear();
 
                     for (QueryDocumentSnapshot document : task.getResult()) {
-                        String category=document.getString("category");
-                        String name=document.getString("name");
-                        String description=document.getString("description");
-                        String location=document.getString("location");
-                        long number=document.getLong("contact");
-                        long status= document.getLong("status").intValue();
-                        String timestamp=document.getString("timestamp");
-                        Complain complain=new Complain(name,location,description,number,status,category,timestamp);
+                        String category = document.getString("category");
+                        String name = document.getString("name");
+                        String description = document.getString("description");
+                        String location = document.getString("location");
+                        long number = document.getLong("contact");
+                        long status = document.getLong("status").intValue();
+                        String timestamp = document.getString("timestamp");
+                        Complain complain = new Complain(name, location, description, number, status, category, timestamp);
                         complaint.add(complain);
                     }
-                    ComplainAdaptar complainAdaptar = new ComplainAdaptar(complaint);
-                    recyclerView.setAdapter(complainAdaptar);
+                    if (complaint.size() > 0) {
+                        ComplainAdaptar complainAdaptar = new ComplainAdaptar(complaint);
+                        recyclerView.setAdapter(complainAdaptar);
+                    }
+                    else{
+                        textView=findViewById(R.id.text0);
+                        textView.setVisibility(View.VISIBLE);
+                    }
                 }
             }
         });

@@ -121,9 +121,7 @@ public class MainActivity extends AppCompatActivity {
             return;
         }
         if (name_array.size() > 1) {
-
             name_array.clear();
-
         }
 
 //        Log.v("Taggg", name_array.size()+ "");
@@ -216,7 +214,7 @@ public class MainActivity extends AppCompatActivity {
                        startActivity(intent);
                        finish();
                    }
-                   else Toast.makeText(MainActivity.this, "An error occured", Toast.LENGTH_SHORT).show();
+                  // else Toast.makeText(MainActivity.this, "An error occured", Toast.LENGTH_SHORT).show();
                }
            });
 //            startActivity(new Intent(getApplicationContext(),ComplaintActivity.class));
