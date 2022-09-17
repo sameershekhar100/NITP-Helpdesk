@@ -37,9 +37,13 @@ public class NewComplaint extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_complaint);
         getViews();
+        //String mName="";
+
+
         Intent intent = getIntent();
         currDept = intent.getStringExtra("Department");
         currName = intent.getStringExtra("name");
+        name.setText(currName);
         Log.v("Tag",currDept+"");
         doc=firestore.collection("Department").document(currDept).collection("names").document(currName);
 
@@ -82,6 +86,11 @@ public class NewComplaint extends AppCompatActivity {
                     if(mycomplaints==null) mycomplaints=new ArrayList<String>();
                     mycomplaints.add(id);
                     doc.update("my_complaint",mycomplaints);
+                    Intent intent=new Intent(getApplicationContext(),ComplaintActivity.class);
+                    intent.putExtra("Department",currDept);
+                    intent.putExtra("name",currName);
+                    startActivity(intent);
+                    finish();
                 }
             }
         });

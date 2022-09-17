@@ -89,9 +89,9 @@ public class ComplaintActivity extends AppCompatActivity {
                         String name = document.getString("name");
                         String description = document.getString("description");
                         String location = document.getString("location");
-                        long number = document.getLong("contact");
+                        long number = document.getLong("number");
                         long status = document.getLong("status").intValue();
-                        String timestamp = document.getString("timestamp");
+                        String timestamp = document.getString("timeStamp");
                         Complain complain = new Complain(name, location, description, number, status, category, timestamp);
                         complaint.add(complain);
                     }

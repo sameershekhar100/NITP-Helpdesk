@@ -209,8 +209,10 @@ public class MainActivity extends AppCompatActivity {
                        currName = task.getResult().getString("name");
                        Log.v("msg",task.getResult().getId()+"");
                        Intent intent = new Intent(getApplicationContext(), ComplaintActivity.class);
+                       Log.v("xx",currDept+"");
                        intent.putExtra("Department", currDept);
                        intent.putExtra("name", currName);
+
                        startActivity(intent);
                        finish();
                    }
