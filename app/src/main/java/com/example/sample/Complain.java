@@ -1,6 +1,8 @@
 package com.example.sample;
 
-public class Complain {
+import java.io.Serializable;
+
+public class Complain implements Serializable {
 
 
      String name,location,description, category,timeStamp;;

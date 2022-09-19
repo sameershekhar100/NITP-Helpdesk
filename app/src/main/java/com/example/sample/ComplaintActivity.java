@@ -21,13 +21,15 @@ import com.google.firebase.Timestamp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Objects;
 
-public class ComplaintActivity extends AppCompatActivity implements ComplaintItemClicked {
+public class ComplaintActivity extends AppCompatActivity implements ComplaintItemClicked  {
     RecyclerView recyclerView;
     RecyclerView.LayoutManager layoutManager;
     ImageButton imageButton;
@@ -88,7 +90,7 @@ public class ComplaintActivity extends AppCompatActivity implements ComplaintIte
         recyclerView.setLayoutManager(layoutManager);
         ArrayList<Complain> complaint = new ArrayList<>();
 
-        complaintRef.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+        complaintRef.orderBy("timeStamp", Query.Direction.DESCENDING).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 if (task.isSuccessful()) {
@@ -121,6 +123,7 @@ public class ComplaintActivity extends AppCompatActivity implements ComplaintIte
 
     @Override
     public void onItemClicked(Complain item) {
-        Toast.makeText(this, ""+item.getDescription(), Toast.LENGTH_SHORT).show();
+        Intent intent =new Intent(getApplicationContext(), ComplainView.class);
+        intent.putExtra("item",item);
     }
 }

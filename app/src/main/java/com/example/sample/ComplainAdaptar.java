@@ -47,7 +47,7 @@ public class ComplainAdaptar extends RecyclerView.Adapter<ComplainAdaptar.Compla
         holder.name.setText(complain.getName());
         holder.category.setText(complain.getCategory());
         holder.description.setText(complain.getDescription());
-        holder.timeStamp.setText(TimeUtils.getTime(System.currentTimeMillis()));
+        holder.timeStamp.setText(TimeUtils.getTime(Long.parseLong(complain.getTimeStamp())));
     }
 
     @Override

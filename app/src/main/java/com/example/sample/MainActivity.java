@@ -45,11 +45,15 @@ public class MainActivity extends AppCompatActivity {
     String currDept, currName, email;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     CollectionReference ref;
+    Class c=ComplaintActivity.class;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         getViews();
 
         //extract dept and name
@@ -107,8 +111,6 @@ public class MainActivity extends AppCompatActivity {
             }
 
         });
-
-
     }
 
     //find name
@@ -169,64 +171,26 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void verification() {
-        if (currDept.isEmpty() || currDept.equals("None")) {
+        if (currDept.isEmpty() || currDept.equals("None"))
             Toast.makeText(this, "Select your department", Toast.LENGTH_SHORT).show();
-            return;
-        } else if (currName == null || currName.equals("None")) {
+        else if (currName == null || currName.equals("None"))
             Toast.makeText(this, "Select your name", Toast.LENGTH_SHORT).show();
-            return;
-        }
-        // TODO Verify...
-
-        getEmail();//email=null
-       // while(email==null);
+        else
+            getEmail();
     }
 
     void getEmail() {
-      //  Toast.makeText(this, "dept:" + currDept + " name:" + currName , Toast.LENGTH_SHORT).show();
         ref.document(currName).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
             public void onSuccess(DocumentSnapshot documentSnapshot) {
                 if(documentSnapshot.exists()){
                     email= documentSnapshot.getString("email");
-//                    Log.v("gandu mc",email+"");
-//                    System.out.println(email+"");
                     signIn();
                 }
             }
         });
     }
-    public void onStart() {
-        super.onStart();
-        FirebaseUser currentUser = auth.getCurrentUser();
-        if(currentUser != null){
-            DocumentReference reff=db.collection("Accounts").document(currentUser.getUid());
-           reff.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-               @Override
-               public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                   if(task.isSuccessful()) {
-                       currDept = task.getResult().getString("department");
-                       currName = task.getResult().getString("name");
-                       Log.v("msg",task.getResult().getId()+"");
-                       Class c=ComplaintActivity.class;
-                       if(Objects.equals(currentUser.getEmail(), "sameershekhar100@gmail.com")){
-                           c= AdminActivity.class;
-                       }
-                       Intent intent = new Intent(getApplicationContext(),c);
-                       Log.v("xx",currDept+"");
-                       intent.putExtra("Department", currDept);
-                       intent.putExtra("name", currName);
 
-                       startActivity(intent);
-                       finish();
-                   }
-                  else Toast.makeText(MainActivity.this, "An error occured", Toast.LENGTH_SHORT).show();
-               }
-           });
-//            startActivity(new Intent(getApplicationContext(),ComplaintActivity.class));
-//            finish();
-        }
-    }
     void signIn(){
 
         auth.signInWithEmailAndPassword(email, "abc123").addOnCompleteListener(new OnCompleteListener<AuthResult>() {
@@ -234,7 +198,11 @@ public class MainActivity extends AppCompatActivity {
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()) {
                 //    FirebaseUser user=auth.getCurrentUser();
-                    Intent intent=new Intent(getApplicationContext(),ComplaintActivity.class);
+
+                    if(Objects.equals(email, "sameershekhar200@gmail.com")){
+                        c= AdminActivity.class;
+                    }
+                    Intent intent=new Intent(getApplicationContext(),c);
                     intent.putExtra("Department",currDept);
                     intent.putExtra("name",currName);
                     startActivity(intent);
@@ -263,5 +231,36 @@ public class MainActivity extends AppCompatActivity {
 //                        }
 //                    }
 //                });
+    }
+    public void onStart() {
+        super.onStart();
+        FirebaseUser currentUser = auth.getCurrentUser();
+        if(currentUser != null){
+            DocumentReference reff=db.collection("Accounts").document(currentUser.getUid());
+            reff.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                @Override
+                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                    if(task.isSuccessful()) {
+                        currDept = task.getResult().getString("department");
+                        currName = task.getResult().getString("name");
+                        Log.v("msg",task.getResult().getId()+"");
+
+                        if(Objects.equals(currentUser.getEmail(), "sameershekhar200@gmail.com")){
+                            c= AdminActivity.class;
+                        }
+                        Intent intent = new Intent(getApplicationContext(),c);
+                        Log.v("xx",currDept+"");
+                        intent.putExtra("Department", currDept);
+                        intent.putExtra("name", currName);
+
+                        startActivity(intent);
+                        finish();
+                    }
+                    else Toast.makeText(MainActivity.this, "An error occured", Toast.LENGTH_SHORT).show();
+                }
+            });
+//            startActivity(new Intent(getApplicationContext(),ComplaintActivity.class));
+//            finish();
+        }
     }
 }
