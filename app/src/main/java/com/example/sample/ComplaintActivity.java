@@ -27,7 +27,7 @@ import com.google.firebase.firestore.QuerySnapshot;
 import java.util.ArrayList;
 import java.util.Objects;
 
-public class ComplaintActivity extends AppCompatActivity {
+public class ComplaintActivity extends AppCompatActivity implements ComplaintItemClicked {
     RecyclerView recyclerView;
     RecyclerView.LayoutManager layoutManager;
     ImageButton imageButton;
@@ -107,7 +107,7 @@ public class ComplaintActivity extends AppCompatActivity {
                         complaint.add(complain);
                     }
                     if (complaint.size() > 0) {
-                        ComplainAdaptar complainAdaptar = new ComplainAdaptar(complaint);
+                        ComplainAdaptar complainAdaptar = new ComplainAdaptar(complaint,getApplicationContext(),ComplaintActivity.this);
                         recyclerView.setAdapter(complainAdaptar);
                     }
                     else{
@@ -117,5 +117,10 @@ public class ComplaintActivity extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    @Override
+    public void onItemClicked(Complain item) {
+        Toast.makeText(this, ""+item.getDescription(), Toast.LENGTH_SHORT).show();
     }
 }

@@ -2,7 +2,6 @@ package com.example.sample;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -17,10 +16,10 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.sample.Admin.AdminActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.ActionCodeSettings;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -32,6 +31,7 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity {
     EditText e1;
@@ -208,7 +208,11 @@ public class MainActivity extends AppCompatActivity {
                        currDept = task.getResult().getString("department");
                        currName = task.getResult().getString("name");
                        Log.v("msg",task.getResult().getId()+"");
-                       Intent intent = new Intent(getApplicationContext(), ComplaintActivity.class);
+                       Class c=ComplaintActivity.class;
+                       if(Objects.equals(currentUser.getEmail(), "sameershekhar100@gmail.com")){
+                           c= AdminActivity.class;
+                       }
+                       Intent intent = new Intent(getApplicationContext(),c);
                        Log.v("xx",currDept+"");
                        intent.putExtra("Department", currDept);
                        intent.putExtra("name", currName);
@@ -216,7 +220,7 @@ public class MainActivity extends AppCompatActivity {
                        startActivity(intent);
                        finish();
                    }
-                  // else Toast.makeText(MainActivity.this, "An error occured", Toast.LENGTH_SHORT).show();
+                  else Toast.makeText(MainActivity.this, "An error occured", Toast.LENGTH_SHORT).show();
                }
            });
 //            startActivity(new Intent(getApplicationContext(),ComplaintActivity.class));
