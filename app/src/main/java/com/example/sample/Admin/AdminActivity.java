@@ -101,7 +101,6 @@ public class AdminActivity extends AppCompatActivity  implements ComplaintItemCl
                 if (task.isSuccessful()) {
                     Log.v("Taggg", task.getResult().size() + "");
                     complaint.clear();
-
                     for (QueryDocumentSnapshot document : task.getResult()) {
                         String category = document.getString("category");
                         String name = document.getString("name");

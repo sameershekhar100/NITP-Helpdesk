@@ -67,6 +67,7 @@ public class ComplaintActivity extends AppCompatActivity implements ComplaintIte
                 i1.putExtra("name",currName);
 
                 startActivity(i1);
+                finish();
                // Toast.makeText(ComplaintActivity.this, "complaint added", Toast.LENGTH_SHORT).show();
             }
         });
@@ -93,10 +94,10 @@ public class ComplaintActivity extends AppCompatActivity implements ComplaintIte
         complaintRef.orderBy("timeStamp", Query.Direction.DESCENDING).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
+
                 if (task.isSuccessful()) {
                     Log.v("Taggg", task.getResult().size() + "");
                     complaint.clear();
-
                     for (QueryDocumentSnapshot document : task.getResult()) {
                         String category = document.getString("category");
                         String name = document.getString("name");
@@ -125,5 +126,6 @@ public class ComplaintActivity extends AppCompatActivity implements ComplaintIte
     public void onItemClicked(Complain item) {
         Intent intent =new Intent(getApplicationContext(), ComplainView.class);
         intent.putExtra("item",item);
+        startActivity(intent);
     }
 }

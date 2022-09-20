@@ -32,14 +32,16 @@
             android:textSize="36sp"
             android:gravity="center"
             android:layout_below="@id/location1"/>
+
         <ImageView
-            android:layout_width="12dp"
-            android:layout_height="12dp"
-            android:src="@drawable/circle"
-            android:layout_toRightOf="@id/title"
+            android:id="@+id/status"
+            android:layout_width="10dp"
+            android:layout_height="10dp"
             android:layout_below="@id/location1"
             android:layout_centerInParent="true"
-            />
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="12dp"
+            android:layout_toRightOf="@id/title" />
 
         <TextView
             android:id="@+id/time"
@@ -70,6 +72,21 @@
             android:paddingStart="22dp"
             android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud ..."
             android:textColor="@color/black" />
+        <Spinner
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/description"
+            android:layout_marginTop="12dp"
+            android:layout_centerHorizontal="true"
+            android:id="@+id/status_update"/>
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/status_update"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="12dp"
+            android:text="Update"
+            android:id="@+id/button_update"/>
     </RelativeLayout>
 
 </androidx.cardview.widget.CardView>

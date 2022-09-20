@@ -77,21 +77,19 @@ public class NewComplaint extends AppCompatActivity {
         Complain newComplain = new Complain(mName, mLoc, mDes, mContact, 0, category, "" + time);
 
 
-        ref.add(newComplain).addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
+        ref.document(newComplain.getTimeStamp()).set(newComplain).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
-            public void onComplete(@NonNull Task<DocumentReference> task) {
-                if (task.isSuccessful()) {
-                    Toast.makeText(NewComplaint.this, "Complaint added", Toast.LENGTH_SHORT).show();
-                    String id = task.getResult().getId();
-                    if(mycomplaints==null) mycomplaints=new ArrayList<String>();
-                    mycomplaints.add(id);
-                    doc.update("my_complaint",mycomplaints);
-                    Intent intent=new Intent(getApplicationContext(),ComplaintActivity.class);
-                    intent.putExtra("Department",currDept);
-                    intent.putExtra("name",currName);
-                    startActivity(intent);
-                    finish();
-                }
+            public void onComplete(@NonNull Task<Void> task) {
+                Toast.makeText(NewComplaint.this, "Complaint added", Toast.LENGTH_SHORT).show();
+                //String id = task.getResult().getId();
+                if(mycomplaints==null) mycomplaints=new ArrayList<String>();
+//                mycomplaints.add(id);
+                //doc.update("my_complaint",mycomplaints);
+                Intent intent=new Intent(getApplicationContext(),ComplaintActivity.class);
+                intent.putExtra("Department",currDept);
+                intent.putExtra("name",currName);
+                startActivity(intent);
+                finish();
             }
         });
 

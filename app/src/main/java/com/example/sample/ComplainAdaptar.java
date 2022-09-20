@@ -18,6 +18,7 @@ public class ComplainAdaptar extends RecyclerView.Adapter<ComplainAdaptar.Compla
     ArrayList<Complain> complaint;
     Context context;
     ComplaintItemClicked listener;
+    String id;
     public ComplainAdaptar(ArrayList<Complain> complaint, Context context,ComplaintItemClicked listener) {
         this.complaint = complaint;
         this.context = context;
@@ -34,7 +35,7 @@ public class ComplainAdaptar extends RecyclerView.Adapter<ComplainAdaptar.Compla
         myView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                listener.onItemClicked(complaint.get(holder.getAbsoluteAdapterPosition()));
+                listener.onItemClicked(complaint.get(holder.getAdapterPosition()));
             }
         });
         return holder;
