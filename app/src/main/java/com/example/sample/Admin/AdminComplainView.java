@@ -1,4 +1,4 @@
-package com.example.sample;
+package com.example.sample.Admin;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -14,24 +14,26 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.sample.Complain;
+import com.example.sample.R;
+import com.example.sample.TimeUtils;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
 
-public class ComplainView extends AppCompatActivity {
+public class AdminComplainView extends AppCompatActivity {
     TextView name, category, description,location;
     TextView timeStamp;
     ImageView status;
     Spinner statusUpdate;
     FirebaseFirestore db=FirebaseFirestore.getInstance();
     String cId;
-    DocumentReference doc;
     Complain complain;
+    String[] status_state={"Registered","Ongoing","Completed"};
     Button update;
     int ii;
-    ArrayList<String> arr=new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,7 +51,7 @@ public class ComplainView extends AppCompatActivity {
         category.setText(complain.getCategory());
         description.setText(complain.getDescription());
         statusUpdate=findViewById(R.id.status_update);
-        String t=TimeUtils.getTime(Long.parseLong(complain.getTimeStamp()));
+        String t= TimeUtils.getTime(Long.parseLong(complain.getTimeStamp()));
         timeStamp.setText(t);
         update=findViewById(R.id.button_update);
         cId=complain.getTimeStamp();
@@ -63,17 +65,9 @@ public class ComplainView extends AppCompatActivity {
             }
         });
 
-        arr.add("R.drawable.circle1");
-        arr.add("R.drawable.circle2");
-        arr.add("R.drawable.circle3");
-        //String s=getResources().getResourceName(status.getId());
-
-
-
-
     }
     void setupSpinner(){
-        String[] status_state={"Registered","Ongoing","Completed"};
+
         ArrayAdapter<String> adapter =new  ArrayAdapter<>(getApplicationContext(),
                 android.R.layout.simple_spinner_item,status_state);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -103,9 +97,11 @@ public class ComplainView extends AppCompatActivity {
         }
     }
     void f(){
+
         DocumentReference doc=db.collection("Complaint").document(complain.getTimeStamp());
         doc.update("status",ii);
         setStatus(ii);
+        Toast.makeText(this, status_state[ii], Toast.LENGTH_SHORT).show();
     }
 
 }
