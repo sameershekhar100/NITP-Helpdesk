@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import com.example.sample.Admin.AdminComplainView;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -124,7 +125,7 @@ public class ComplaintActivity extends AppCompatActivity implements ComplaintIte
 
     @Override
     public void onItemClicked(Complain item) {
-        Intent intent =new Intent(getApplicationContext(), ComplainView.class);
+        Intent intent =new Intent(getApplicationContext(), AdminComplainView.class);
         intent.putExtra("item",item);
         startActivity(intent);
     }
