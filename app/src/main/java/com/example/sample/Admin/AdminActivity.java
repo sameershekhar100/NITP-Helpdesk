@@ -16,7 +16,7 @@ import android.widget.Toast;
 
 import com.example.sample.Complain;
 import com.example.sample.ComplainAdaptar;
-import com.example.sample.ComplainView;
+import com.example.sample.Admin.AdminComplainView;
 import com.example.sample.ComplaintActivity;
 import com.example.sample.ComplaintItemClicked;
 import com.example.sample.MainActivity;
@@ -127,7 +127,7 @@ public class AdminActivity extends AppCompatActivity  implements ComplaintItemCl
 
     @Override
     public void onItemClicked(Complain item) {
-        Intent intent =new Intent(getApplicationContext(), ComplainView.class);
+        Intent intent =new Intent(getApplicationContext(), AdminComplainView.class);
         intent.putExtra("item",item);
         startActivity(intent);
         Toast.makeText(this, item.getName(), Toast.LENGTH_SHORT).show();

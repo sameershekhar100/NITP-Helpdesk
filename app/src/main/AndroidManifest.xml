@@ -14,7 +14,10 @@
         android:theme="@style/Theme.Sample"
         tools:targetApi="31">
         <activity
-            android:name=".ComplainView"
+            android:name=".SplashActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Admin.AdminComplainView"
             android:exported="false" />
         <activity
             android:name=".Admin.AdminActivity"

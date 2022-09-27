@@ -40,6 +40,20 @@ public class AdminComplainView extends AppCompatActivity {
         setContentView(R.layout.activity_complain_view);
         Intent intent=getIntent();
         complain=(Complain) intent.getSerializableExtra("item");
+        findViews();
+
+
+        setupSpinner();
+        setStatus(complain.getStatus());
+        update.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                f();
+            }
+        });
+
+    }
+    void findViews(){
         name=findViewById(R.id.title);
         location=findViewById(R.id.location1);
         category=findViewById(R.id.category);
@@ -55,16 +69,6 @@ public class AdminComplainView extends AppCompatActivity {
         timeStamp.setText(t);
         update=findViewById(R.id.button_update);
         cId=complain.getTimeStamp();
-
-        setupSpinner();
-        setStatus(complain.getStatus());
-        update.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                f();
-            }
-        });
-
     }
     void setupSpinner(){
 
