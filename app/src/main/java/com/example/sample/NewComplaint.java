@@ -47,16 +47,7 @@ public class NewComplaint extends AppCompatActivity {
         Log.v("Tag",currDept+"");
         doc=firestore.collection("Department").document(currDept).collection("names").document(currName);
 
-        doc.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                if(task.isSuccessful()){
-                    DocumentSnapshot documentSnapshot=task.getResult();
-                    mycomplaints=(ArrayList<String>)documentSnapshot.get("my_complaint");
 
-                }
-            }
-        });
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -81,10 +72,20 @@ public class NewComplaint extends AppCompatActivity {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 Toast.makeText(NewComplaint.this, "Complaint added", Toast.LENGTH_SHORT).show();
-                //String id = task.getResult().getId();
-                if(mycomplaints==null) mycomplaints=new ArrayList<String>();
-//                mycomplaints.add(id);
-                //doc.update("my_complaint",mycomplaints);
+                String id = newComplain.getTimeStamp();
+                doc.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                        if(task.isSuccessful()){
+                            DocumentSnapshot documentSnapshot=task.getResult();
+                            mycomplaints=(ArrayList<String>)documentSnapshot.get("my_complaint");
+                            if(mycomplaints==null) mycomplaints=new ArrayList<String>();
+                            mycomplaints.add(id);
+                            doc.update("my_complaint",mycomplaints);
+                        }
+                    }
+                });
+
                 Intent intent=new Intent(getApplicationContext(),ComplaintActivity.class);
                 intent.putExtra("Department",currDept);
                 intent.putExtra("name",currName);

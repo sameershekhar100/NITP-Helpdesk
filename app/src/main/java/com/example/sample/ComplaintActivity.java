@@ -125,7 +125,7 @@ public class ComplaintActivity extends AppCompatActivity implements ComplaintIte
 
     @Override
     public void onItemClicked(Complain item) {
-        Intent intent =new Intent(getApplicationContext(), AdminComplainView.class);
+        Intent intent =new Intent(getApplicationContext(), ComplainView.class);
         intent.putExtra("item",item);
         startActivity(intent);
     }

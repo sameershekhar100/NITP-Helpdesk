@@ -84,6 +84,7 @@ public class AdminActivity extends AppCompatActivity  implements ComplaintItemCl
                 setComplaintView();
                 refreshLayout.setRefreshing(false);
                 Toast.makeText(getApplicationContext(), "refreshed", Toast.LENGTH_SHORT).show();
+                setComplaintView();
 
             }
         });
