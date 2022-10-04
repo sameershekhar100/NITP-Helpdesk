@@ -17,5 +17,5 @@
     <style name="general_text_style">
         <item name="android:textColor">@color/black</item>
     </style>
-    <color name="wheat">#F3CB82</color>
+    <color name="wheat">#F7AF2C</color>
 </resources>

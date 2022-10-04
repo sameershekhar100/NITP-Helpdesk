@@ -37,7 +37,6 @@ import java.util.Objects;
 public class ComplaintActivity extends AppCompatActivity implements ComplaintItemClicked  {
     RecyclerView recyclerView;
     RecyclerView.LayoutManager layoutManager;
-    ImageButton imageButton;
     TextInputLayout textView;
     SwipeRefreshLayout refreshLayout;
     MaterialToolbar toolbar;
@@ -147,7 +146,7 @@ public class ComplaintActivity extends AppCompatActivity implements ComplaintIte
                         startActivity(new Intent(getApplicationContext(), MainActivity.class));
                         finish();
                         return true;
-                    case R.id.savedPosts:
+                    case R.id.filter:
                         Toast.makeText(ComplaintActivity.this, "Clicked", Toast.LENGTH_SHORT).show();
                         return true;
                 }
