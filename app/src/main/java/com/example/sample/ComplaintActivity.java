@@ -3,6 +3,7 @@ package com.example.sample;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -10,6 +11,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
@@ -17,7 +19,9 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import com.example.sample.Admin.AdminComplainView;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.Timestamp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
@@ -34,8 +38,9 @@ public class ComplaintActivity extends AppCompatActivity implements ComplaintIte
     RecyclerView recyclerView;
     RecyclerView.LayoutManager layoutManager;
     ImageButton imageButton;
-    TextView textView;
+    TextInputLayout textView;
     SwipeRefreshLayout refreshLayout;
+    MaterialToolbar toolbar;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     CollectionReference complaintRef = db.collection("Complaint");
     FloatingActionButton newComplaint;
@@ -44,21 +49,22 @@ public class ComplaintActivity extends AppCompatActivity implements ComplaintIte
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_complaint);
         getSupportActionBar().hide();
+        setupToolbar();
         Intent intent=getIntent();
         String currDept=intent.getStringExtra("Department");
         String currName=intent.getStringExtra("name");
         Log.v("ppppppp",currDept+"");
 
-        imageButton = findViewById(R.id.logout);
-        imageButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Toast.makeText(ComplaintActivity.this, "logout", Toast.LENGTH_SHORT).show();
-                FirebaseAuth.getInstance().signOut();
-                startActivity(new Intent(getApplicationContext(), MainActivity.class));
-                finish();
-            }
-        });
+//        imageButton = findViewById(R.id.logout);
+//        imageButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Toast.makeText(ComplaintActivity.this, "logout", Toast.LENGTH_SHORT).show();
+//                FirebaseAuth.getInstance().signOut();
+//                startActivity(new Intent(getApplicationContext(), MainActivity.class));
+//                finish();
+//            }
+//        });
         newComplaint=findViewById(R.id.newComplaint);
         newComplaint.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -128,5 +134,25 @@ public class ComplaintActivity extends AppCompatActivity implements ComplaintIte
         Intent intent =new Intent(getApplicationContext(), ComplainView.class);
         intent.putExtra("item",item);
         startActivity(intent);
+    }
+    void setupToolbar(){
+        toolbar=findViewById(R.id.toolbar);
+        toolbar.inflateMenu(R.menu.menu_bar);
+        toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                switch (item.getItemId()){
+                    case R.id.logout:
+                        FirebaseAuth.getInstance().signOut();
+                        startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                        finish();
+                        return true;
+                    case R.id.savedPosts:
+                        Toast.makeText(ComplaintActivity.this, "Clicked", Toast.LENGTH_SHORT).show();
+                        return true;
+                }
+                return false;
+            }
+        });
     }
 }

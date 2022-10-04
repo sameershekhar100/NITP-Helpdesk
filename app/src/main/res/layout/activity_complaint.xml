@@ -6,26 +6,38 @@
     android:layout_height="match_parent"
     tools:context=".ComplaintActivity">
 
-    <androidx.appcompat.widget.Toolbar
+
+    <com.google.android.material.appbar.MaterialToolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:background="@color/purple_500"
+        android:theme="@style/Widget.Material3.Toolbar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="NITP Complaint Desk"
+        app:layout_constraintTop_toTopOf="@+id/toolbar"
+        app:layout_constraintBottom_toBottomOf="@+id/toolbar"
+        app:layout_constraintLeft_toLeftOf="@+id/toolbar"
+        android:textSize="26sp"
+        android:fontFamily="@font/inder"
+        android:theme="@style/general_text_style"
+        android:layout_marginStart="16dp"
+        />
 
-
-    <ImageButton
-        android:id="@+id/logout"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_marginEnd="15dp"
-        android:background="@color/purple_500"
-        android:src="@drawable/ic_baseline_logout_24"
-        app:layout_constraintBottom_toBottomOf="@id/toolbar"
-        app:layout_constraintRight_toRightOf="@id/toolbar"
-        app:layout_constraintTop_toTopOf="@+id/toolbar" />
+<!--    <ImageButton-->
+<!--        android:id="@+id/logout"-->
+<!--        android:layout_width="50dp"-->
+<!--        android:layout_height="50dp"-->
+<!--        android:layout_marginEnd="15dp"-->
+<!--        android:theme="@style/Widget.Material3.Toolbar"-->
+<!--        android:src="@drawable/ic_baseline_logout_24"-->
+<!--        app:layout_constraintBottom_toBottomOf="@id/toolbar"-->
+<!--        app:layout_constraintRight_toRightOf="@id/toolbar"-->
+<!--        app:layout_constraintTop_toTopOf="@+id/toolbar" />-->
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -59,7 +71,7 @@
             app:layout_constraintVertical_bias="0.924"
             app:maxImageSize="42dp" />
 
-    <TextView
+    <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/text0"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

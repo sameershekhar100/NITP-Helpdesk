@@ -17,7 +17,7 @@ public class ComplainView extends AppCompatActivity {
     TextView timeStamp;
     ImageView status;
     Spinner statusUpdate;
-    FirebaseFirestore db=FirebaseFirestore.getInstance();
+
     String cId;
     Complain complain;
     Button update;
@@ -29,6 +29,7 @@ public class ComplainView extends AppCompatActivity {
         complain=(Complain) intent.getSerializableExtra("item");
         findViews();
         update.setVisibility(View.GONE);
+        statusUpdate.setVisibility(View.GONE);
     }
     void findViews(){
         name=findViewById(R.id.title);
