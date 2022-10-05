@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/my_complaints"
+        android:title="My complaints"
+        app:cnb_iconColor="#fff"
+        app:cnb_backgroundColor="#ff785b"
+        app:cnb_textColor="#fff"/>
+
+    <item
+        android:id="@+id/all_complaints"
+        android:title="all complaints"
+        app:cnb_iconColor="#fff"
+        app:cnb_backgroundColor="#ff785b"
+        app:cnb_textColor="#fff"/>
+</menu>

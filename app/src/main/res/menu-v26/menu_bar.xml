@@ -5,12 +5,12 @@
         android:id="@+id/logout"
         android:icon="@drawable/logut"
         android:title="Logout"
-        app:showAsAction="ifRoom"
+        app:showAsAction="never"
         android:iconTint="@color/wheat"/>
     <item
         android:id="@+id/filter"
         android:title="filter"
-        app:showAsAction="ifRoom"
+        app:showAsAction="never"
         android:iconTint="@color/wheat"
         android:icon="@drawable/ic_baseline_filter_list_24"/>
 </menu>

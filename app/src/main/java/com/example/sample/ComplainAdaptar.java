@@ -50,7 +50,11 @@ public class ComplainAdaptar extends RecyclerView.Adapter<ComplainAdaptar.Compla
         holder.description.setText(complain.getDescription());
         holder.timeStamp.setText(TimeUtils.getTime(Long.parseLong(complain.getTimeStamp())));
     }
-
+    public void setData(ArrayList<Complain> complaint)
+    {
+        this.complaint=complaint;
+        notifyDataSetChanged();
+    }
     @Override
     public int getItemCount() {
         return complaint.size();

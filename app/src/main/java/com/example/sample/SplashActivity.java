@@ -20,7 +20,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import java.util.Objects;
 
 public class SplashActivity extends AppCompatActivity {
-    Class c = ComplaintActivity.class;
+    Class c = ComplainMainActivity.class;
     String currDept="",currName="";
 
     @Override
