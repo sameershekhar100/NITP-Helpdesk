@@ -13,6 +13,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.sample.Complain;
@@ -43,7 +44,7 @@ public class MyComplainFragment extends Fragment implements ComplaintItemClicked
 
     RecyclerView recyclerView;
     RecyclerView.LayoutManager layoutManager;
-    TextInputLayout textView;
+    TextView textView;
     SwipeRefreshLayout refreshLayout;
     ArrayList<Complain> complaint = new ArrayList<>();
     FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -101,10 +102,11 @@ public class MyComplainFragment extends Fragment implements ComplaintItemClicked
                 if(task.isSuccessful()){
                     DocumentSnapshot doc=task.getResult();
                     mycomplainID=(ArrayList<String>)doc.get("my_complaint");
-                    Log.v("tt",mycomplainID.size()+"");
-                    if(!mycomplainID.isEmpty())
+                    //Log.v("tt",mycomplainID.size()+"");
+                    if(mycomplainID!=null)
                     fetchMyComplaints();
                     else{
+                        Log.v("hehe","hehe");
                         textView.setVisibility(View.VISIBLE);
                     }
                 }

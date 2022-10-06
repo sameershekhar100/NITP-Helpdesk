@@ -46,86 +46,85 @@ public class AdminActivity extends AppCompatActivity  implements ComplaintItemCl
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_complaint);
-        getSupportActionBar().hide();
+        setContentView(R.layout.activity_complain_main);
         Intent intent=getIntent();
         String currDept=intent.getStringExtra("Department");
         String currName=intent.getStringExtra("name");
         Log.v("ppppppp",currDept+"");
 
-        imageButton = findViewById(R.id.logout);
-        imageButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Toast.makeText(getApplicationContext(), "logout", Toast.LENGTH_SHORT).show();
-                FirebaseAuth.getInstance().signOut();
-                startActivity(new Intent(getApplicationContext(), MainActivity.class));
-                finish();
-            }
-        });
-        newComplaint=findViewById(R.id.newComplaint);
-        newComplaint.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent i1=new Intent(getApplicationContext(), NewComplaint.class);
-                i1.putExtra("Department",currDept);
-                i1.putExtra("name",currName);
-
-                startActivity(i1);
-                // Toast.makeText(ComplaintActivity.this, "complaint added", Toast.LENGTH_SHORT).show();
-            }
-        });
-
-        setComplaintView();
-        refreshLayout=findViewById(R.id.refresh);
-        refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                setComplaintView();
-                refreshLayout.setRefreshing(false);
-                Toast.makeText(getApplicationContext(), "refreshed", Toast.LENGTH_SHORT).show();
-                setComplaintView();
-
-            }
-        });
-    }
-
-    void setComplaintView() {
-        layoutManager = new LinearLayoutManager(getApplicationContext());
-        recyclerView = findViewById(R.id.complain_list);
-        recyclerView.setLayoutManager(layoutManager);
-        ArrayList<Complain> complaint = new ArrayList<>();
-
-        complaintRef.orderBy("timeStamp", Query.Direction.DESCENDING).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                if (task.isSuccessful()) {
-                    Log.v("Taggg", task.getResult().size() + "");
-                    complaint.clear();
-                    for (QueryDocumentSnapshot document : task.getResult()) {
-                        String category = document.getString("category");
-                        String name = document.getString("name");
-                        String description = document.getString("description");
-                        String location = document.getString("location");
-                        long number = document.getLong("number");
-                        long status = document.getLong("status").intValue();
-                        String timestamp = document.getString("timeStamp");
-                        Complain complain = new Complain(name, location, description, number, status, category, timestamp);
-                        complaint.add(complain);
-                    }
-                    if (complaint.size() > 0) {
-                        ComplainAdaptar complainAdaptar = new ComplainAdaptar(complaint,getApplicationContext(), AdminActivity.this);
-                        recyclerView.setAdapter(complainAdaptar);
-                    }
-                    else{
-                        textView=findViewById(R.id.text0);
-                        textView.setVisibility(View.VISIBLE);
-                    }
-                }
-            }
-        });
-    }
-
+//        imageButton = findViewById(R.id.logout);
+//        imageButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Toast.makeText(getApplicationContext(), "logout", Toast.LENGTH_SHORT).show();
+//                FirebaseAuth.getInstance().signOut();
+//                startActivity(new Intent(getApplicationContext(), MainActivity.class));
+//                finish();
+//            }
+//        });
+//        newComplaint=findViewById(R.id.newComplaint);
+//        newComplaint.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Intent i1=new Intent(getApplicationContext(), NewComplaint.class);
+//                i1.putExtra("Department",currDept);
+//                i1.putExtra("name",currName);
+//
+//                startActivity(i1);
+//                // Toast.makeText(ComplaintActivity.this, "complaint added", Toast.LENGTH_SHORT).show();
+//            }
+//        });
+//
+//        setComplaintView();
+//        refreshLayout=findViewById(R.id.refresh);
+//        refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+//            @Override
+//            public void onRefresh() {
+//                setComplaintView();
+//                refreshLayout.setRefreshing(false);
+//                Toast.makeText(getApplicationContext(), "refreshed", Toast.LENGTH_SHORT).show();
+//                setComplaintView();
+//
+//            }
+//        });
+//    }
+//
+//    void setComplaintView() {
+//        layoutManager = new LinearLayoutManager(getApplicationContext());
+//        recyclerView = findViewById(R.id.complain_list);
+//        recyclerView.setLayoutManager(layoutManager);
+//        ArrayList<Complain> complaint = new ArrayList<>();
+//
+//        complaintRef.orderBy("timeStamp", Query.Direction.DESCENDING).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+//            @Override
+//            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+//                if (task.isSuccessful()) {
+//                    Log.v("Taggg", task.getResult().size() + "");
+//                    complaint.clear();
+//                    for (QueryDocumentSnapshot document : task.getResult()) {
+//                        String category = document.getString("category");
+//                        String name = document.getString("name");
+//                        String description = document.getString("description");
+//                        String location = document.getString("location");
+//                        long number = document.getLong("number");
+//                        long status = document.getLong("status").intValue();
+//                        String timestamp = document.getString("timeStamp");
+//                        Complain complain = new Complain(name, location, description, number, status, category, timestamp);
+//                        complaint.add(complain);
+//                    }
+//                    if (complaint.size() > 0) {
+//                        ComplainAdaptar complainAdaptar = new ComplainAdaptar(complaint,getApplicationContext(), AdminActivity.this);
+//                        recyclerView.setAdapter(complainAdaptar);
+//                    }
+//                    else{
+//                        textView=findViewById(R.id.text0);
+//                        textView.setVisibility(View.VISIBLE);
+//                    }
+//                }
+//            }
+//        });
+   }
+//
     @Override
     public void onItemClicked(Complain item) {
         Intent intent =new Intent(getApplicationContext(), AdminComplainView.class);

@@ -36,7 +36,7 @@ public class SplashActivity extends AppCompatActivity {
                     FirebaseUser user = mAuth.getCurrentUser();
 
                     if (user != null) {
-                        if (Objects.equals(user.getEmail(), "sameershekhar200@gmail.com"))
+                        if (Objects.equals(user.getEmail(), "sameershekhar2000@gmail.com"))
                             c = AdminActivity.class;
                         getdetails(user);
 
