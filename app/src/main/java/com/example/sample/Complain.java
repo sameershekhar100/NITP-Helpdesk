@@ -1,12 +1,18 @@
 package com.example.sample;
-
-import java.io.Serializable;
-
+import java.io.Serializable
+        ;
+@SuppressWarnings("serial")
 public class Complain implements Serializable {
 
+     String category;
+     String description;
+     String location;
+     String name;
+     long number;
+     long status;
+     String timeStamp;
 
-     String name,location,description, category,timeStamp;;
-     long status,number;
+
 
 
     public String getName() {
@@ -36,6 +42,9 @@ public class Complain implements Serializable {
         this.status = status;
         this.category = category;
         this.timeStamp=timeStamp;
+    }
+    public  Complain(){
+
     }
 
     //getters and setters

@@ -22,6 +22,8 @@ import com.example.sample.ComplaintItemClicked;
 import com.example.sample.NewComplaint;
 import com.example.sample.R;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -30,6 +32,7 @@ import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import org.checkerframework.checker.units.qual.A;
 
@@ -42,7 +45,6 @@ public class MyComplainFragment extends Fragment implements ComplaintItemClicked
     RecyclerView.LayoutManager layoutManager;
     TextInputLayout textView;
     SwipeRefreshLayout refreshLayout;
-    MaterialToolbar toolbar;
     ArrayList<Complain> complaint = new ArrayList<>();
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     CollectionReference complaintRef = db.collection("Complaint");
@@ -98,7 +100,8 @@ public class MyComplainFragment extends Fragment implements ComplaintItemClicked
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                 if(task.isSuccessful()){
                     DocumentSnapshot doc=task.getResult();
-                    mycomplainID=(ArrayList<String>)doc.get("my_complaints");
+                    mycomplainID=(ArrayList<String>)doc.get("my_complaint");
+                    Log.v("tt",mycomplainID.size()+"");
                     if(!mycomplainID.isEmpty())
                     fetchMyComplaints();
                     else{
@@ -129,17 +132,15 @@ public class MyComplainFragment extends Fragment implements ComplaintItemClicked
 //            textView.setVisibility(View.VISIBLE);
 //        }
         for(String i: mycomplainID){
-            complaintRef.document(i).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            complaintRef.document(i).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
                 @Override
-                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                    if(task.isSuccessful()) {
-                        DocumentSnapshot snapshot=task.getResult();
-                        Complain complain =snapshot.toObject(Complain.class);
-                        complaint.add(complain);
-                        complainAdaptar.setData(complaint);
-                    }
+                public void onSuccess(DocumentSnapshot documentSnapshot) {
+                    Complain complain=documentSnapshot.toObject(Complain.class);
+                    complaint.add(complain);
+                    complainAdaptar.setData(complaint);
                 }
-            });
+            }).addOnFailureListener(e ->
+                    Toast.makeText(getActivity(), "Could not fetch", Toast.LENGTH_SHORT).show());
         }
 
     }

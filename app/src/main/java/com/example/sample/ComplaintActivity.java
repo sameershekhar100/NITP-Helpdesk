@@ -47,7 +47,6 @@ public class ComplaintActivity extends AppCompatActivity implements ComplaintIte
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_complaint);
-        getSupportActionBar().hide();
         setupToolbar();
         Intent intent=getIntent();
         String currDept=intent.getStringExtra("Department");

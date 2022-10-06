@@ -37,9 +37,6 @@ public class NewComplaint extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_complaint);
         getViews();
-        //String mName="";
-
-
         Intent intent = getIntent();
         currDept = intent.getStringExtra("Department");
         currName = intent.getStringExtra("name");
@@ -82,11 +79,12 @@ public class NewComplaint extends AppCompatActivity {
                             if(mycomplaints==null) mycomplaints=new ArrayList<String>();
                             mycomplaints.add(id);
                             doc.update("my_complaint",mycomplaints);
+                            Toast.makeText(NewComplaint.this, "Complaint added", Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
 
-                Intent intent=new Intent(getApplicationContext(),ComplaintActivity.class);
+                Intent intent=new Intent(getApplicationContext(),ComplainMainActivity.class);
                 intent.putExtra("Department",currDept);
                 intent.putExtra("name",currName);
                 startActivity(intent);
@@ -101,11 +99,9 @@ public class NewComplaint extends AppCompatActivity {
         int selectedId = type.getCheckedRadioButtonId();
 
         if (selectedId == -1) {
-            //Toast.makeText(getApplicationContext(),"No answer has been selected", Toast.LENGTH_SHORT).show();
             return null;
         }
         RadioButton radioButton = type.findViewById(selectedId);
-        // Toast.makeText(getApplicationContext(), radioButton.getText(), Toast.LENGTH_SHORT).show();
         return radioButton.getText().toString();
     }
 
