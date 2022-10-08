@@ -1,4 +1,4 @@
-package com.example.sample;
+package com.example.sample.Activities;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,6 +12,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
+import com.example.sample.R;
 import com.example.sample.fragments.AllComplaintFragment;
 import com.example.sample.fragments.MyComplainFragment;
 import com.google.firebase.auth.FirebaseAuth;

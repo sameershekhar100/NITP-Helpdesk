@@ -1,4 +1,4 @@
-package com.example.sample;
+package com.example.sample.Activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -13,6 +13,9 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.sample.Class.Complain;
+import com.example.sample.Class.TimeUtils;
+import com.example.sample.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;

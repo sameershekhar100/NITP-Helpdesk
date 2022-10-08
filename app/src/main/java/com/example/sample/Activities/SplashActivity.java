@@ -1,4 +1,4 @@
-package com.example.sample;
+package com.example.sample.Activities;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,7 +8,9 @@ import android.view.WindowManager;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.sample.Admin.AdminActivity;
+import com.example.sample.Activities.ComplainMainActivity;
+import com.example.sample.Activities.MainActivity;
+import com.example.sample.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -36,17 +38,12 @@ public class SplashActivity extends AppCompatActivity {
                     FirebaseUser user = mAuth.getCurrentUser();
 
                     if (user != null) {
-                        if (Objects.equals(user.getEmail(), "sameershekhar2000@gmail.com"))
-                            c = AdminActivity.class;
                         getdetails(user);
-
-
                     } else {
                         c = MainActivity.class;
                         startActivity(new Intent(getApplicationContext(),c));
                         finish();
                     }
-
                 }
                 , 1000);
     }
@@ -60,7 +57,6 @@ public class SplashActivity extends AppCompatActivity {
                 if(task.isSuccessful()){
                     currDept = task.getResult().getString("department");
                     currName = task.getResult().getString("name");
-
                     intent.putExtra("Department",currDept);
                     intent.putExtra("name",currName);
                     startActivity(intent);

@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:layout_margin="12dp"
     android:elevation="12dp"
-    tools:context=".ComplainView">
+    tools:context=".Activities.ComplainView">
 
 
     <androidx.constraintlayout.widget.ConstraintLayout

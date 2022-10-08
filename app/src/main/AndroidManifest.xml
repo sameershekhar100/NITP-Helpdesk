@@ -14,13 +14,13 @@
         android:theme="@style/Theme.Sample"
         tools:targetApi="31">
         <activity
-            android:name=".ComplainMainActivity"
+            android:name=".Activities.ComplainMainActivity"
             android:exported="false" />
         <activity
-            android:name=".ComplainView"
+            android:name=".Activities.ComplainView"
             android:exported="false" />
         <activity
-            android:name=".SplashActivity"
+            android:name=".Activities.SplashActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -28,21 +28,13 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity
-            android:name=".Admin.AdminComplainView"
-            android:exported="false" />
-        <activity
-            android:name=".Admin.AdminActivity"
-            android:exported="false" />
-        <activity
-            android:name=".NewComplaint"
+            android:name=".Activities.NewComplaint"
             android:exported="false"
             android:windowSoftInputMode="stateVisible" />
         <activity
-            android:name=".ComplaintActivity"
-            android:exported="false" />
-        <activity
-            android:name=".MainActivity"
+            android:name=".Activities.MainActivity"
             android:exported="false" />
 
         <meta-data

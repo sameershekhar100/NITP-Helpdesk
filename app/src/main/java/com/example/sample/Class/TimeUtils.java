@@ -1,4 +1,4 @@
-package com.example.sample;
+package com.example.sample.Class;
 
 public class TimeUtils {
     private static int SECOND_MILLIS = 1000;

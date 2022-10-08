@@ -1,4 +1,4 @@
-package com.example.sample;
+package com.example.sample.Class;
 import java.io.Serializable
         ;
 @SuppressWarnings("serial")

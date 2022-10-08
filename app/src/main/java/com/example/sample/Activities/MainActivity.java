@@ -1,4 +1,4 @@
-package com.example.sample;
+package com.example.sample.Activities;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -16,27 +16,24 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.sample.Admin.AdminActivity;
+import com.example.sample.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
-import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
-import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity {
     EditText e1;
     Button getOTP, Submit;
-    FirebaseAuth  auth = FirebaseAuth.getInstance();
+    FirebaseAuth auth = FirebaseAuth.getInstance();
     ProgressBar p;
     Spinner dept, name;
     LinearLayout layout;
@@ -45,7 +42,6 @@ public class MainActivity extends AppCompatActivity {
     String currDept, currName, email;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     CollectionReference ref;
-    Class c=ComplaintActivity.class;
 
 
 
@@ -118,7 +114,8 @@ public class MainActivity extends AppCompatActivity {
         if (currDept.equals("None")) {
             name_array.clear();
             name.setAdapter(null);
-            currDept="";currName="";
+            currDept = "";
+            currName = "";
             Toast.makeText(this, "Select your Department", Toast.LENGTH_SHORT).show();
             return;
         }
@@ -140,7 +137,7 @@ public class MainActivity extends AppCompatActivity {
                         String name = document.getId().toString();
                         name_array.add(name);
                     }
-                    Log.v("Taggg", name_array.get(0)+ "");
+                    Log.v("Taggg", name_array.get(0) + "");
                     Toast.makeText(MainActivity.this, "" + name_array.size(), Toast.LENGTH_SHORT).show();
                     setNameSpinner();
                     p.setVisibility(View.GONE);
@@ -183,33 +180,31 @@ public class MainActivity extends AppCompatActivity {
         ref.document(currName).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
             public void onSuccess(DocumentSnapshot documentSnapshot) {
-                if(documentSnapshot.exists()){
-                    email= documentSnapshot.getString("email");
+                if (documentSnapshot.exists()) {
+                    email = documentSnapshot.getString("email");
                     signIn();
                 }
             }
         });
     }
 
-    void signIn(){
+    void signIn() {
 
         auth.signInWithEmailAndPassword(email, "abc123").addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()) {
-                //    FirebaseUser user=auth.getCurrentUser();
-
-                    if(Objects.equals(email, "sameershekhar200@gmail.com")){
-                        c= AdminActivity.class;
-                    }
-                    Intent intent=new Intent(getApplicationContext(),c);
-                    intent.putExtra("Department",currDept);
-                    intent.putExtra("name",currName);
+                    //    FirebaseUser user=auth.getCurrentUser();
+                    Intent intent = new Intent(getApplicationContext(), ComplainMainActivity.class);
+                    intent.putExtra("Department", currDept);
+                    intent.putExtra("name", currName);
                     startActivity(intent);
                     finish();
                 }
             }
         });
+    }
+}
 //        ActionCodeSettings actionCodeSettings =
 //                ActionCodeSettings.newBuilder()
 //                        // URL you want to redirect back to. The domain (www.example.com) for this
@@ -231,36 +226,35 @@ public class MainActivity extends AppCompatActivity {
 //                        }
 //                    }
 //                });
-    }
-    public void onStart() {
-        super.onStart();
-        FirebaseUser currentUser = auth.getCurrentUser();
-        if(currentUser != null){
-            DocumentReference reff=db.collection("Accounts").document(currentUser.getUid());
-            reff.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-                @Override
-                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                    if(task.isSuccessful()) {
-                        currDept = task.getResult().getString("department");
-                        currName = task.getResult().getString("name");
-                        Log.v("msg",task.getResult().getId()+"");
-
-                        if(Objects.equals(currentUser.getEmail(), "sameershekhar200@gmail.com")){
-                            c= AdminActivity.class;
-                        }
-                        Intent intent = new Intent(getApplicationContext(),c);
-                        Log.v("xx",currDept+"");
-                        intent.putExtra("Department", currDept);
-                        intent.putExtra("name", currName);
-
-                        startActivity(intent);
-                        finish();
-                    }
-                    else Toast.makeText(MainActivity.this, "An error occured", Toast.LENGTH_SHORT).show();
-                }
-            });
+//    public void onStart() {
+//        super.onStart();
+//        FirebaseUser currentUser = auth.getCurrentUser();
+//        if(currentUser != null){
+//            DocumentReference reff=db.collection("Accounts").document(currentUser.getUid());
+//            reff.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+//                @Override
+//                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+//                    if(task.isSuccessful()) {
+//                        currDept = task.getResult().getString("department");
+//                        currName = task.getResult().getString("name");
+//                        Log.v("msg",task.getResult().getId()+"");
+//
+//                        if(Objects.equals(currentUser.getEmail(), "sameershekhar200@gmail.com")){
+//                            c= AdminActivity.class;
+//                        }
+//                        Intent intent = new Intent(getApplicationContext(),c);
+//                        Log.v("xx",currDept+"");
+//                        intent.putExtra("Department", currDept);
+//                        intent.putExtra("name", currName);
+//
+//                        startActivity(intent);
+//                        finish();
+//                    }
+//                    else Toast.makeText(MainActivity.this, "An error occured", Toast.LENGTH_SHORT).show();
+//                }
+//            });
 //            startActivity(new Intent(getApplicationContext(),ComplaintActivity.class));
 //            finish();
-        }
-    }
-}
+//        }
+
+
