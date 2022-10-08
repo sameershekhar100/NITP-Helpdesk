@@ -13,6 +13,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.sample.Complain;
@@ -39,7 +40,7 @@ import java.util.ArrayList;
 public class AllComplaintFragment extends Fragment implements ComplaintItemClicked {
     RecyclerView recyclerView;
     RecyclerView.LayoutManager layoutManager;
-    TextInputLayout textView;
+    TextView textView;
     SwipeRefreshLayout refreshLayout;
     MaterialToolbar toolbar;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
