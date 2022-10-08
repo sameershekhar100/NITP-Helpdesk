@@ -1,4 +1,4 @@
-package com.example.sample;
+package com.example.sample.Adaptars;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -11,6 +11,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.sample.Class.Complain;
 import com.example.sample.Class.TimeUtils;
+import com.example.sample.Interfaces.ComplaintItemClicked;
+import com.example.sample.R;
 
 import java.util.ArrayList;
 

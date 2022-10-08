@@ -1,4 +1,4 @@
-package com.example.sample;
+package com.example.sample.Interfaces;
 
 import com.example.sample.Class.Complain;
 

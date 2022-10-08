@@ -17,9 +17,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.sample.Class.Complain;
-import com.example.sample.ComplainAdaptar;
+import com.example.sample.Adaptars.ComplainAdaptar;
 import com.example.sample.Activities.ComplainView;
-import com.example.sample.ComplaintItemClicked;
+import com.example.sample.Interfaces.ComplaintItemClicked;
 import com.example.sample.Activities.NewComplaint;
 import com.example.sample.R;
 import com.google.android.gms.tasks.OnCompleteListener;
